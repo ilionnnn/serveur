@@ -7,8 +7,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - monreseau
 
-db:
+  db:
     image: mariadb:10.5
     container_name: mariadb
     restart: always
@@ -21,4 +25,9 @@ db:
       - mariadb_data:/var/lib/mysql
     networks:
       - monreseau
-  
+
+volumes:
+  mariadb_data:
+
+networks:
+  monreseau:
